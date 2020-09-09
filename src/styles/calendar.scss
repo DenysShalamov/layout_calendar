@@ -1,7 +1,7 @@
 .calendar {
   display: flex;
   flex-wrap: wrap;
-  max-width: ($cellSize + $cellGap) * $daysCount;
+  width: ($cellSize + $cellGap) * $daysCount;
   position: absolute;
   top: 50%;
   left: 50%;

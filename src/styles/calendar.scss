@@ -1,52 +1,49 @@
 .calendar {
-  display: flex;
-  flex-wrap: wrap;
-  width: ($cellSize + $cellGap) * $daysCount;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-wrap: wrap;
+  width: 7 * ($cell-size + $cell-gap);
+  transform: translate(-50%,-50%);
 
-  & > div {
-    height: $cellSize;
-    width: $cellSize;
-
-    margin-right: $cellGap;
-    margin-bottom: $cellGap;
-
+  div {
+    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
-
+    justify-content: center;
+    width: $cell-size;
+    height: $cell-size;
+    margin-right: $cell-gap;
+    margin-bottom: $cell-gap;
     background-color: #eee;
     border: 1px solid black;
-
-    transition: background-color 0.5s, transform 0.5s;
+    transition: transform 0.5s, background-color 0.5s;
+    cursor: pointer;
 
     &:hover {
-      cursor: pointer;
       background-color: pink;
       transform: translateY(-20px);
     }
-
-    @for $i from 1 through 31 {
-      &:nth-child(#{$i}) {
-        &::after {
-          content: "#{$i}";
-        }
-      }
-    }
   }
+}
 
-  @for $i from 28 through 31 {
-    &-#{$i} :nth-child(n+#{$i+1}) {
-      display: none;
-    }
+@for $i from 1 through 31 {
+  .calendar :nth-child(#{$i})::after {
+    content: "#{$i}";
   }
+}
 
-  @each $day, $order in $weekDays {
-    &-#{$day} :first-child {
-      margin-left: $order * $cellSize + $cellGap;
+@for $i from 28 through 31 {
+  .calendar-#{$i} > &:nth-child(n + #{$i + 1}) {
+    display: none;
+  }
+}
+
+@each $day, $order in $weekDays {
+  .calendar-#{$day} {
+    & :first-child {
+      margin-left: ($cell-size + $cell-gap) * $order;
     }
   }
 }
